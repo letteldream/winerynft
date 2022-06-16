@@ -1,0 +1,41 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TheWineryNFT
+    network: avalanche
+    source:
+      address: "0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+      abi: TheWineryNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - NewMaxElement
+        - NewPriceEvent
+        - OwnershipTransferred
+        - PauseEvent
+        - Transfer
+      abis:
+        - name: TheWineryNFT
+          file: ./abis/TheWineryNFT.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: NewMaxElement(uint256)
+          handler: handleNewMaxElement
+        - event: NewPriceEvent(uint256)
+          handler: handleNewPriceEvent
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PauseEvent(bool)
+          handler: handlePauseEvent
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/the-winery-nft.ts
