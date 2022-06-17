@@ -1,0 +1,24 @@
+specVersion: 0.0.4
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TheWineryNFT
+    network: avalanche
+    source:
+      address: "0x99fec0ca5cd461884e2e6e8484c219bbfb91e2df"
+      abi: TheWineryNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - WineryToken
+        - User
+      abis:
+        - name: TheWineryNFT
+          file: TheWineryNFT\abis\TheWineryNFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: TheWineryNFT\TheWineryNFT.wasm
